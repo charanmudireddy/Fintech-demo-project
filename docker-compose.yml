@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: demo-postgres
+    environment:
+      POSTGRES_DB: loandb
+      POSTGRES_USER: loanuser
+      POSTGRES_PASSWORD: loanpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./app
+    container_name: demo-api
+    environment:
+      DB_HOST: postgres
+      DB_NAME: loandb
+      DB_USER: loanuser
+      DB_PASSWORD: loanpass
+      DB_PORT: 5432
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
