@@ -1,0 +1,18 @@
+replicaCount: 2
+
+image:
+  repository: demo-project-api
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
+
+database:
+  host: postgres
+  name: loandb
+  user: loanuser
+  password: loanpass
+  port: "5432"
